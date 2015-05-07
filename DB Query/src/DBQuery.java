@@ -254,27 +254,29 @@ public class DBQuery {
 				"SELECT PersonID, FirstName, MiddleName, LastName, Birthday FROM ntm_person WHERE Birthday IS NULL;",
 
 				"SELECT * FROM ref_glaccount;",
-
+				
+				// test-d0003.hir_client_system specific
 				"SELECT EventID, EventSequenceNo, TopicID, SystemTopicID, Content, ModuleMnemonic, OriginatingSystemID, SourceSystemID "
 						+ "FROM hir_client_system.ens_event "
-						+ "WHERE EventID = 17469 " + "ORDER by EventID DESC;"
-
-		/*
-		 * "SELECT Content " + "FROM hir_client_system.ens_event " +
-		 * "WHERE EventID = 17469 " + "ORDER by EventID DESC;"
-		 */
+						+ "WHERE EventID = 17469 " + "ORDER by EventID DESC;",
+						
+				// devinstance3.service_event003 specific
+				"SELECT EventID, TopicID, ContentHeader, StoreHeader, Content FROM ens_queue WHERE EventID = 449 "
+								 
 		};
 
-//		processQuery("devinstance3", "jxntm4_2_49", "mysql", query[0]);
-		processQuery("devinstance3", "jxntm4_2_54", "mysql", query[1]);
-
-//		processQuery("dev-d0003", "hir_db", "mysql", query[0]);
+		// processQuery("devinstance3", "jxntm4_2_49", "mysql", query[0]);
+//		processQuery("devinstance3", "jxntm4_2_54", "mysql", query[1]);
+		processQuery("devinstance3", "service_event003", "mysql", query[8]);
 		
-//		processQuery("test-d0003", "hir_sample_customer", "mysql", query[6]);
-//		processQuery("test-d0003", "hir_client_system", "mysql", query[7]);
-//
-//		processQuery("10.0.0.2", "hir_db", "mysql", query[0]);
-//		processQuery("localhost", "jxntm_gatewaygl", "mysql", query[0]);
+
+		// processQuery("dev-d0003", "hir_db", "mysql", query[0]);
+
+		// processQuery("test-d0003", "hir_sample_customer", "mysql", query[6]);
+		// processQuery("test-d0003", "hir_client_system", "mysql", query[7]);
+		//
+		// processQuery("10.0.0.2", "hir_db", "mysql", query[0]);
+		// processQuery("localhost", "jxntm_gatewaygl", "mysql", query[0]);
 
 	}
 
@@ -326,7 +328,7 @@ public class DBQuery {
 					 */
 
 					// Setting cell height
-					if ((rs.getString(7).split(
+					if ((rs.getString(i).split(
 							System.getProperty("line.separator")).length > colHeight)) {
 						colHeight = rs.getString(i).split(
 								System.getProperty("line.separator")).length;
@@ -386,7 +388,8 @@ public class DBQuery {
 			}
 			System.out.println();
 
-			// Printing Column spans dynamically according to ResultSetMetaData
+			// Printing Column max widths dynamically according to
+			// ResultSetMetaData
 			System.out.print("| ");
 			for (int i = 1; i <= colCounter; i++) {
 				System.out.printf("%-" + colWidth[i] + "s | ", colWidth[i]);
