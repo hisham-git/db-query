@@ -1,4 +1,3 @@
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -11,7 +10,8 @@ public class DBQuery {
 
 		// DB Query
 		String[] query = {
-
+				// Select all Programs with Application, Enrollment & Financial
+				// info
 				"SELECT DISTINCT "
 						+ "ntm_offering.OfferingCode, "
 						+ "ntm_offering.Name AS ProgramOffering_Name, "
@@ -83,77 +83,88 @@ public class DBQuery {
 
 						"WHERE ntm_program.Name LIKE '%zbt%' " +
 
-						"ORDER BY ntm_program.Name ASC; ",
+						"ORDER BY ntm_program.Name ASC;",
 
 				// Select all Sections with Finanacial, Optional items &
 				// discounts
-				/*
-				 * "SELECT DISTINCT " + "ntm_offering.OfferingCode, " +
-				 * "ntm_offering.Name as Offering_Name, " +
-				 * "ntm_offering.HasApprovalProcess, " +
-				 * 
-				 * "ntm_section.SectionNumber, " +
-				 * "fss_sectionstatuscode.Name as Section_Status, " +
-				 * "ntm_section.FinalEnrollmentDate, " +
-				 * 
-				 * "ntm_seatgroup.Name as SeatGroup_Name, " +
-				 * "ntm_seatgroup.NumberOfSeats, " + "ntm_seatgroup.IsDefault, "
-				 * +
-				 * 
-				 * "ntm_sectionfinancial.Description as SectionFinancial_Name, "
-				 * + "ntm_sectionfinancial.IsOptional, " +
-				 * "ntm_sectionfinancial.IsActive, " +
-				 * "ref_glaccount.Name as GL_Name, " +
-				 * 
-				 * "ntm_discountprogram.ShortName as DiscountProgram_Name, " +
-				 * "ref_discounttype.Name as DiscountType, " +
-				 * 
-				 * "ntm_discountprogram.Amount as Discount_Amount, " +
-				 * "ref_discountamounttype.Name as Amount_Unit, " +
-				 * 
-				 * "ntm_discountprogram.IsPromotedForMarketing, " +
-				 * "ntm_discountprogram.IsActive " +
-				 * 
-				 * "FROM ntm_offering " + "INNER JOIN ntm_section on " +
-				 * "ntm_offering.OfferingID = ntm_section.OfferingID " +
-				 * 
-				 * "INNER JOIN ntm_seatgroup on " +
-				 * "ntm_section.SectionID = ntm_seatgroup.SectionID " +
-				 * 
-				 * "INNER JOIN fss_sectionstatuscode on " +
-				 * "ntm_section.SectionStatusCodeID = fss_sectionstatuscode.StatusID "
-				 * +
-				 * 
-				 * "LEFT OUTER JOIN ntm_seatgroupfinancial on " +
-				 * "ntm_seatgroup.SeatGroupID = ntm_seatgroupfinancial.SeatGroupID "
-				 * +
-				 * 
-				 * "LEFT OUTER JOIN ntm_sectionfinancial on " +
-				 * "ntm_seatgroupfinancial.SectionFinancialID = ntm_sectionfinancial.SectionFinancialID "
-				 * +
-				 * 
-				 * "LEFT OUTER JOIN ref_glaccount on " +
-				 * "ref_glaccount.ID = ntm_sectionfinancial.GLAccountID " +
-				 * 
-				 * "LEFT OUTER JOIN ntm_sectiondiscount on " +
-				 * "ntm_sectionfinancial.SectionFinancialID = ntm_sectiondiscount.SectionFinancialID "
-				 * +
-				 * 
-				 * "LEFT OUTER JOIN ntm_discountprogram on " +
-				 * "ntm_sectiondiscount.DiscountProgramID = ntm_discountprogram.DiscountProgramID "
-				 * +
-				 * 
-				 * "LEFT OUTER JOIN ref_discounttype on " +
-				 * "ref_discounttype.ID = ntm_discountprogram.DiscountTypeID " +
-				 * 
-				 * "LEFT OUTER JOIN ref_discountamounttype on " +
-				 * "ntm_discountprogram.AmountTypeID = ref_discountamounttype.ID "
-				 * +
-				 * 
-				 * "WHERE ntm_section.SectionNumber like '%1112-%' " +
-				 * 
-				 * "ORDER BY ntm_section.SectionNumber ASC;",
-				 */
+				"SELECT DISTINCT "
+						+ "ntm_offering.OfferingCode, "
+						+ "ntm_offering.Name as Offering_Name, "
+						+ "ntm_offering.HasApprovalProcess, "
+						+
+
+						"ntm_section.SectionNumber, "
+						+ "fss_sectionstatuscode.Name as Section_Status, "
+						+ "ntm_section.FinalEnrollmentDate, "
+						+
+
+						"ntm_seatgroup.Name as SeatGroup_Name, "
+						+ "ntm_seatgroup.NumberOfSeats, "
+						+ "ntm_seatgroup.IsDefault, "
+						+
+
+						"ntm_sectionfinancial.Description as SectionFinancial_Name, "
+						+ "ntm_sectionfinancial.IsOptional, "
+						+ "ntm_sectionfinancial.IsActive, "
+						+ "ref_glaccount.Name as GL_Name, "
+						+
+
+						"ntm_discountprogram.ShortName as DiscountProgram_Name, "
+						+ "ref_discounttype.Name as DiscountType, "
+						+
+
+						"ntm_discountprogram.Amount as Discount_Amount, "
+						+ "ref_discountamounttype.Name as Amount_Unit, "
+						+
+
+						"ntm_discountprogram.IsPromotedForMarketing, "
+						+ "ntm_discountprogram.IsActive "
+						+
+
+						"FROM ntm_offering "
+						+ "INNER JOIN ntm_section on "
+						+ "ntm_offering.OfferingID = ntm_section.OfferingID "
+						+
+
+						"INNER JOIN ntm_seatgroup on "
+						+ "ntm_section.SectionID = ntm_seatgroup.SectionID "
+						+
+
+						"INNER JOIN fss_sectionstatuscode on "
+						+ "ntm_section.SectionStatusCodeID = fss_sectionstatuscode.StatusID "
+						+
+
+						"LEFT OUTER JOIN ntm_seatgroupfinancial on "
+						+ "ntm_seatgroup.SeatGroupID = ntm_seatgroupfinancial.SeatGroupID "
+						+
+
+						"LEFT OUTER JOIN ntm_sectionfinancial on "
+						+ "ntm_seatgroupfinancial.SectionFinancialID = ntm_sectionfinancial.SectionFinancialID "
+						+
+
+						"LEFT OUTER JOIN ref_glaccount on "
+						+ "ref_glaccount.ID = ntm_sectionfinancial.GLAccountID "
+						+
+
+						"LEFT OUTER JOIN ntm_sectiondiscount on "
+						+ "ntm_sectionfinancial.SectionFinancialID = ntm_sectiondiscount.SectionFinancialID "
+						+
+
+						"LEFT OUTER JOIN ntm_discountprogram on "
+						+ "ntm_sectiondiscount.DiscountProgramID = ntm_discountprogram.DiscountProgramID "
+						+
+
+						"LEFT OUTER JOIN ref_discounttype on "
+						+ "ref_discounttype.ID = ntm_discountprogram.DiscountTypeID "
+						+
+
+						"LEFT OUTER JOIN ref_discountamounttype on "
+						+ "ntm_discountprogram.AmountTypeID = ref_discountamounttype.ID "
+						+
+
+						"WHERE ntm_section.SectionNumber like '%1112-%' " +
+
+						"ORDER BY ntm_section.SectionNumber ASC;",
 
 				// Select all Students with Purchaser role
 				"SELECT DISTINCT "
@@ -239,17 +250,31 @@ public class DBQuery {
 						"ORDER BY ntm_faculty.FacultyID ASC;",
 
 				"SELECT PersonID, FirstName, MiddleName, LastName FROM ntm_person WHERE LastName LIKE '%dff%';",
+
 				"SELECT PersonID, FirstName, MiddleName, LastName, Birthday FROM ntm_person WHERE Birthday IS NULL;",
-				"SELECT * FROM ref_glaccount;" };
 
-		// processQuery("dev-d0003", "hir_db", "mysql", query[0]);
-		// processQuery("dev-d0003", "hir_db", "mysql", query[0]);
-		// processQuery("test-d0003", "hir_sample_customer", "mysql", query[0]);
+				"SELECT * FROM ref_glaccount;",
 
-		// processQuery("10.0.0.2", "hir_db", "mysql", query[0]);
-		// processQuery("localhost", "jxntm_gatewaygl", "mysql", query[0]);
-		// processQuery("devinstance3", "jxntm4_2_49", "mysql", query[0]);
-		processQuery("devinstance3", "jxntm4_2_49", "mysql", query[0]);
+				"SELECT EventID, EventSequenceNo, TopicID, SystemTopicID, Content, ModuleMnemonic, OriginatingSystemID, SourceSystemID "
+						+ "FROM hir_client_system.ens_event "
+						+ "WHERE EventID = 17469 " + "ORDER by EventID DESC;"
+
+		/*
+		 * "SELECT Content " + "FROM hir_client_system.ens_event " +
+		 * "WHERE EventID = 17469 " + "ORDER by EventID DESC;"
+		 */
+		};
+
+//		processQuery("devinstance3", "jxntm4_2_49", "mysql", query[0]);
+		processQuery("devinstance3", "jxntm4_2_54", "mysql", query[1]);
+
+//		processQuery("dev-d0003", "hir_db", "mysql", query[0]);
+		
+//		processQuery("test-d0003", "hir_sample_customer", "mysql", query[6]);
+//		processQuery("test-d0003", "hir_client_system", "mysql", query[7]);
+//
+//		processQuery("10.0.0.2", "hir_db", "mysql", query[0]);
+//		processQuery("localhost", "jxntm_gatewaygl", "mysql", query[0]);
 
 	}
 
@@ -283,26 +308,42 @@ public class DBQuery {
 			ResultSetMetaData metaData = rs.getMetaData();
 
 			int colCounter = metaData.getColumnCount();
-			int[] colspan = new int[colCounter + 1];
+			int[] colWidth = new int[colCounter + 1];
+			int colHeight = 1;
 
 			for (int i = 1; i <= colCounter; i++) {
-				colspan[i] = metaData.getColumnLabel(i).length();
+				colWidth[i] = metaData.getColumnLabel(i).length();
 			}
 
 			for (int i = 1; i <= colCounter; i++) {
 				while (rs.next()) {
+					/*
+					 * switch (metaData.getColumnTypeName(i)) { case "DATETIME":
+					 * if ((rs.getDate(i).toString().length() >= colWidth[i])) {
+					 * colWidth[i] = rs.getDate(i).toString().length(); } break;
+					 * 
+					 * default: break; }
+					 */
+
+					// Setting cell height
+					if ((rs.getString(7).split(
+							System.getProperty("line.separator")).length > colHeight)) {
+						colHeight = rs.getString(i).split(
+								System.getProperty("line.separator")).length;
+					}
+
 					if ((rs.getString(i) != null)
 							&& !(metaData.getColumnTypeName(i)
 									.equalsIgnoreCase("DATETIME"))) {
-						if ((rs.getString(i).length() >= colspan[i])) {
-							colspan[i] = rs.getString(i).length();
+						if ((rs.getString(i).length() >= colWidth[i])) {
+							colWidth[i] = rs.getString(i).length();
 						}
 					}
 
 					if (metaData.getColumnTypeName(i).equalsIgnoreCase(
 							"DATETIME")) {
-						if ((rs.getDate(i).toString().length() >= colspan[i])) {
-							colspan[i] = rs.getDate(i).toString().length();
+						if ((rs.getDate(i).toString().length() >= colWidth[i])) {
+							colWidth[i] = rs.getDate(i).toString().length();
 						}
 					}
 
@@ -311,10 +352,12 @@ public class DBQuery {
 
 			}
 
+			System.out.println(colHeight);
+
 			// Printing separators
 			System.out.print("+=");
 			for (int i = 1; i <= colCounter; i++) {
-				for (int j = 1; j <= colspan[i]; j++) {
+				for (int j = 1; j <= colWidth[i]; j++) {
 					System.out.print("=");
 				}
 				if (i < colCounter) {
@@ -329,22 +372,31 @@ public class DBQuery {
 			// Printing Column names dynamically according to ResultSetMetaData
 			System.out.print("| ");
 			for (int i = 1; i <= colCounter; i++) {
-				System.out.printf("%-" + colspan[i] + "s | ",
+				System.out.printf("%-" + colWidth[i] + "s | ",
 						metaData.getColumnLabel(i));
 			}
 			System.out.println();
 
+			// Printing Column data types dynamically according to
+			// ResultSetMetaData
 			System.out.print("| ");
 			for (int i = 1; i <= colCounter; i++) {
-				System.out.printf("%-" + colspan[i] + "s | ",
+				System.out.printf("%-" + colWidth[i] + "s | ",
 						metaData.getColumnTypeName(i));
+			}
+			System.out.println();
+
+			// Printing Column spans dynamically according to ResultSetMetaData
+			System.out.print("| ");
+			for (int i = 1; i <= colCounter; i++) {
+				System.out.printf("%-" + colWidth[i] + "s | ", colWidth[i]);
 			}
 			System.out.println();
 
 			// Printing separators
 			System.out.print("+=");
 			for (int i = 1; i <= colCounter; i++) {
-				for (int j = 1; j <= colspan[i]; j++) {
+				for (int j = 1; j <= colWidth[i]; j++) {
 					System.out.print("=");
 				}
 				if (i < colCounter) {
@@ -362,14 +414,14 @@ public class DBQuery {
 				for (int i = 1; i <= colCounter; i++) {
 					if (metaData.getColumnTypeName(i).equalsIgnoreCase(
 							"DATETIME")) {
-						System.out.printf("%-" + colspan[i] + "s | ",
+						System.out.printf("%-" + colWidth[i] + "s | ",
 								rs.getDate(i));
 					} else if (metaData.getColumnTypeName(i).equalsIgnoreCase(
 							"TINYINT")) {
-						System.out.printf("%-" + colspan[i] + "s | ",
+						System.out.printf("%-" + colWidth[i] + "s | ",
 								rs.getBoolean(i));
 					} else {
-						System.out.printf("%-" + colspan[i] + "s | ",
+						System.out.printf("%-" + colWidth[i] + "s | ",
 								rs.getString(i));
 					}
 				}
@@ -377,7 +429,7 @@ public class DBQuery {
 
 				System.out.print("+-");
 				for (int i = 1; i <= colCounter; i++) {
-					for (int j = 1; j <= colspan[i]; j++) {
+					for (int j = 1; j <= colWidth[i]; j++) {
 						System.out.print("-");
 					}
 					if (i < colCounter) {
