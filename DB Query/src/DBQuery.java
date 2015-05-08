@@ -10,8 +10,7 @@ public class DBQuery {
 
 		// DB Query
 		String[] query = {
-				// Select all Programs with Application, Enrollment & Financial
-				// info
+				// Select all Programs with Application, Enrollment & Financial info
 				"SELECT DISTINCT "
 						+ "ntm_offering.OfferingCode, "
 						+ "ntm_offering.Name AS ProgramOffering_Name, "
@@ -85,8 +84,7 @@ public class DBQuery {
 
 						"ORDER BY ntm_program.Name ASC;",
 
-				// Select all Sections with Finanacial, Optional items &
-				// discounts
+				// Select all Sections with Finanacial, Optional items & discounts
 				"SELECT DISTINCT "
 						+ "ntm_offering.OfferingCode, "
 						+ "ntm_offering.Name as Offering_Name, "
