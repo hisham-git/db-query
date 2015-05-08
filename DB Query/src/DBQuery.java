@@ -267,13 +267,13 @@ public class DBQuery {
 
 		// processQuery("devinstance3", "jxntm4_2_49", "mysql", query[0]);
 //		processQuery("devinstance3", "jxntm4_2_54", "mysql", query[1]);
-		processQuery("devinstance3", "service_event003", "mysql", query[8]);
+//		processQuery("devinstance3", "service_event003", "mysql", query[8]);
 		
 
 		// processQuery("dev-d0003", "hir_db", "mysql", query[0]);
 
-		// processQuery("test-d0003", "hir_sample_customer", "mysql", query[6]);
-		// processQuery("test-d0003", "hir_client_system", "mysql", query[7]);
+		 processQuery("test-d0003", "hir_sample_customer", "mysql", query[0]);
+//		 processQuery("test-d0003", "hir_client_system", "mysql", query[7]);
 		//
 		// processQuery("10.0.0.2", "hir_db", "mysql", query[0]);
 		// processQuery("localhost", "jxntm_gatewaygl", "mysql", query[0]);
