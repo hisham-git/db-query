@@ -3,6 +3,8 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class DBQuery {
 
@@ -254,9 +256,19 @@ public class DBQuery {
 				"SELECT * FROM ref_glaccount;",
 				
 				// test-d0003.hir_client_system specific
-				"SELECT EventID, EventSequenceNo, TopicID, SystemTopicID, Content, ModuleMnemonic, OriginatingSystemID, SourceSystemID "
+				/*"SELECT EventID, EventSequenceNo, TopicID, SystemTopicID, Content, ModuleMnemonic, OriginatingSystemID, SourceSystemID "
 						+ "FROM hir_client_system.ens_event "
-						+ "WHERE EventID = 17469 " + "ORDER by EventID DESC;",
+						+ "WHERE EventID = 16843 " + "ORDER by EventID DESC;",*/
+						
+				// test-d0003.hir_client_system specific
+				"SELECT TopicID, Content "
+						+ "FROM hir_client_system.ens_event "
+						+ "WHERE EventID = 16843 " + "ORDER by EventID DESC;",
+						
+				// test-d0003.hir_client_system specific
+				"SELECT Content, TopicID "
+						+ "FROM hir_client_system.ens_queue "
+						+ "WHERE EventID = 16853 " + "ORDER by EventID DESC;",
 						
 				// devinstance3.service_event003 specific
 				"SELECT EventID, TopicID, ContentHeader, StoreHeader, Content FROM ens_queue WHERE EventID = 449 "
@@ -270,8 +282,8 @@ public class DBQuery {
 
 		// processQuery("dev-d0003", "hir_db", "mysql", query[0]);
 
-		 processQuery("test-d0003", "hir_sample_customer", "mysql", query[0]);
-//		 processQuery("test-d0003", "hir_client_system", "mysql", query[7]);
+//		 processQuery("test-d0003", "hir_sample_customer", "mysql", query[2]);
+		 processQuery("test-d0003", "hir_client_system", "mysql", query[8]);
 		//
 		// processQuery("10.0.0.2", "hir_db", "mysql", query[0]);
 		// processQuery("localhost", "jxntm_gatewaygl", "mysql", query[0]);
@@ -309,10 +321,16 @@ public class DBQuery {
 
 			int colCounter = metaData.getColumnCount();
 			int[] colWidth = new int[colCounter + 1];
-			int colHeight = 1;
+			int[] colHeight = new int[colCounter + 1];
 
+			// colWidth initialization
 			for (int i = 1; i <= colCounter; i++) {
 				colWidth[i] = metaData.getColumnLabel(i).length();
+			}
+			
+			// colHeight initialization
+			for (int i = 1; i <= colCounter; i++) {
+				colHeight[i] = 1;
 			}
 
 			for (int i = 1; i <= colCounter; i++) {
@@ -324,13 +342,13 @@ public class DBQuery {
 					 * 
 					 * default: break; }
 					 */
-
-					// Setting cell height
-					if ((rs.getString(i).split(
+					
+					
+					/*if ((rs.getString(i).split(
 							System.getProperty("line.separator")).length > colHeight)) {
 						colHeight = rs.getString(i).split(
 								System.getProperty("line.separator")).length;
-					}
+					}*/
 
 					if ((rs.getString(i) != null)
 							&& !(metaData.getColumnTypeName(i)
@@ -352,7 +370,6 @@ public class DBQuery {
 
 			}
 
-			System.out.println(colHeight);
 
 			// Printing separators
 			System.out.print("+=");
@@ -410,9 +427,30 @@ public class DBQuery {
 
 			rs.beforeFirst(); // record pointer is placed before first row
 			// Printing values according to ResultSetMetaData
+			int maxColHeight = 1;
+			
 			while (rs.next()) {
-				System.out.print("| ");
+				
 				for (int i = 1; i <= colCounter; i++) {
+					
+					Matcher m = Pattern.compile("(\n)|(\r)|(\r\n)").matcher(rs.getString(i));
+					while (m.find())
+					{
+						colHeight[i] ++;
+					}
+					
+					if ( colHeight[i] > colHeight[i-1] ) {
+						maxColHeight = colHeight[i];
+					}	
+				}
+				
+				for (int i = 0; i < maxColHeight; i++) {
+					System.out.println("| ");
+					
+				}
+			
+				for (int i = 1; i <= colCounter; i++) {
+															
 					if (metaData.getColumnTypeName(i).equalsIgnoreCase(
 							"DATETIME")) {
 						System.out.printf("%-" + colWidth[i] + "s | ",
